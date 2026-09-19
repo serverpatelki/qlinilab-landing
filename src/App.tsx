@@ -140,12 +140,20 @@ function NavBar() {
             Kontak
           </a>
         </nav>
-        <a
-          href="#kontak"
-          className="hidden rounded-lg bg-brand-blue px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-blue-dark md:inline-block"
-        >
-          Minta Demo
-        </a>
+        <div className="hidden items-center gap-3 md:flex">
+          <a
+            href="https://dashboard.qlinilab.id"
+            className="text-sm font-semibold text-slate-600 hover:text-slate-900"
+          >
+            Login
+          </a>
+          <a
+            href="#kontak"
+            className="rounded-lg bg-brand-blue px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-blue-dark"
+          >
+            Minta Demo
+          </a>
+        </div>
         <button
           className="md:hidden"
           onClick={() => setOpen((v) => !v)}
@@ -164,6 +172,13 @@ function NavBar() {
           </a>
           <a href="#kontak" className="py-2 text-slate-700" onClick={() => setOpen(false)}>
             Kontak
+          </a>
+          <a
+            href="https://dashboard.qlinilab.id"
+            className="py-2 font-semibold text-brand-blue"
+            onClick={() => setOpen(false)}
+          >
+            Login
           </a>
         </div>
       )}
