@@ -2,11 +2,15 @@ import {
   Activity,
   AlertTriangle,
   Barcode,
-  Check,
+  CheckCircle2,
+  Clock,
   FileCheck2,
   Menu,
   Plug,
+  RefreshCw,
+  Server,
   ShieldCheck,
+  Wallet,
   X,
 } from 'lucide-react'
 import { useState } from 'react'
@@ -237,13 +241,21 @@ const SCHEMES = [
     title: 'Server Cloud Terkelola',
     badge: 'Paling Praktis',
     highlight: true,
-    tagline:
-      'Server dikelola penuh oleh kami — hosting, keamanan, pencadangan, dan pembaruan. Lab cukup terhubung internet.',
+    tagline: 'Hosting, keamanan, pencadangan, dan pembaruan — semua kami yang urus.',
     rows: [
-      { label: 'Bayar pertama (aktivasi)', value: 'Rp 15 jt' },
-      { label: '— rincian', value: 'Implementasi 6 jt + lisensi th-1 9 jt' },
-      { label: 'Tahun berikutnya', value: 'Rp 11,4 – 15 jt/thn' },
-      { label: 'Infrastruktur', value: 'Rp 200rb – 500rb/bln (sesuai volume)' },
+      {
+        icon: Wallet,
+        label: 'Bayar Pertama (Aktivasi)',
+        value: 'Rp 15 juta',
+        note: 'Implementasi 6 jt + lisensi tahun ke-1 9 jt',
+      },
+      { icon: RefreshCw, label: 'Tahun Berikutnya', value: 'Rp 11,4 – 15 juta/thn' },
+      {
+        icon: Server,
+        label: 'Infrastruktur',
+        value: 'Rp 200rb – 500rb/bln',
+        note: 'Sesuai volume pasien',
+      },
     ],
     fit: 'Lab yang sudah mapan',
   },
@@ -252,13 +264,21 @@ const SCHEMES = [
     title: 'Server Fisik (On-Premise)',
     badge: 'Server Milik Sendiri',
     highlight: false,
-    tagline:
-      'Server ditempatkan di lokasi lab. Cocok kalau data harus disimpan di pihak sendiri.',
+    tagline: 'Server ditempatkan di lokasi lab — cocok kalau data harus di pihak sendiri.',
     rows: [
-      { label: 'Bayar pertama (aktivasi)', value: 'Rp 15 jt + server' },
-      { label: '— rincian', value: 'Jasa 15 jt (impl+lisensi) + server Rp 20–55 jt (beli sendiri)' },
-      { label: 'Tahun berikutnya', value: 'Rp 12 jt/thn' },
-      { label: 'Infrastruktur', value: 'Server fisik milik lab, sesuai volume' },
+      {
+        icon: Wallet,
+        label: 'Bayar Pertama (Aktivasi)',
+        value: 'Rp 15 juta + server',
+        note: 'Jasa 15 jt (impl+lisensi) + server Rp 20–55 jt (beli sendiri)',
+      },
+      { icon: RefreshCw, label: 'Tahun Berikutnya', value: 'Rp 12 juta/thn' },
+      {
+        icon: Server,
+        label: 'Infrastruktur',
+        value: 'Server fisik milik lab',
+        note: 'Sesuai volume pasien',
+      },
     ],
     fit: 'Lab yang mau kendali penuh atas server',
   },
@@ -267,69 +287,95 @@ const SCHEMES = [
     title: 'Gratis di Awal, Fee per Pemeriksaan',
     badge: 'Tanpa Biaya di Muka',
     highlight: false,
-    tagline:
-      'Lisensi, infrastruktur, dan implementasi ditanggung penuh oleh kami. Kami hanya menarik fee dari tiap pemeriksaan.',
+    tagline: 'Lisensi, infrastruktur & implementasi kami tanggung. Bayar per pemeriksaan.',
     rows: [
-      { label: 'Bayar pertama (aktivasi)', value: 'Rp 0' },
-      { label: 'Berjalan', value: 'Rp 3.000/pemeriksaan' },
-      { label: 'Minimum per bulan', value: 'Rp 500rb (≈167 pemeriksaan)' },
-      { label: 'Masa komitmen', value: '12 bulan' },
+      { icon: Wallet, label: 'Bayar Pertama (Aktivasi)', value: 'Rp 0' },
+      { icon: RefreshCw, label: 'Berjalan', value: 'Rp 3.000/pemeriksaan' },
+      {
+        icon: Clock,
+        label: 'Minimum & Komitmen',
+        value: 'Rp 500rb/bln',
+        note: '≈167 pemeriksaan · komitmen 12 bulan',
+      },
     ],
     fit: 'Lab baru / tanpa modal',
   },
 ]
 
+const COMPARE_ROWS: { label: string; values: [string, string, string] }[] = [
+  { label: 'Bayar pertama (aktivasi)', values: ['Rp 15 jt', 'Rp 15 jt + server', 'Rp 0'] },
+  { label: 'Tahun berikutnya', values: ['Rp 11,4 – 15 jt/thn', 'Rp 12 jt/thn', 'Rp 3.000/pemeriksaan'] },
+  { label: 'Infrastruktur', values: ['Cloud, Rp 200–500rb/bln (kami kelola)', 'Server fisik milik lab', 'Cloud (kami tanggung)'] },
+  { label: 'Minimum / komitmen', values: ['—', '—', 'Rp 500rb/bln, 12 bulan'] },
+  { label: 'Integrasi alat & SatuSehat', values: ['Termasuk', 'Termasuk', 'Termasuk'] },
+  { label: 'Biaya pengembangan & update fitur', values: ['Rp 0 (gratis)', 'Rp 0 (gratis)', 'Rp 0 (gratis)'] },
+  { label: 'Paling sesuai untuk', values: ['Lab mapan', 'Lab mau server sendiri', 'Lab baru / tanpa modal'] },
+]
+
 function Pricing() {
   return (
-    <section id="harga" className="bg-slate-50 py-20">
+    <section id="harga" className="bg-slate-50 py-24">
       <div className="mx-auto max-w-6xl px-6">
-        <div className="text-center">
-          <h2 className="text-3xl font-bold text-slate-900">Harga</h2>
-          <p className="mx-auto mt-3 max-w-xl text-slate-600">
-            Tiga skema investasi, pilih yang paling cocok dengan lab Anda. Belum termasuk PPN.
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="text-sm font-semibold uppercase tracking-wide text-brand-blue">Harga</p>
+          <h2 className="mt-3 text-3xl font-bold text-slate-900 md:text-4xl">
+            Tiga skema, pilih yang paling cocok
+          </h2>
+          <p className="mt-4 text-slate-600">
+            Semua skema sudah termasuk integrasi alat analyzer, SatuSehat & BPJS, worklist, dan
+            label barcode. Fitur dan pembaruan gratis selamanya — tanpa biaya development.
+            Belum termasuk PPN.
           </p>
         </div>
 
-        <div className="mx-auto mt-8 max-w-3xl rounded-xl border border-emerald-100 bg-emerald-50 px-5 py-4 text-center text-sm text-emerald-800">
-          Semua skema sudah termasuk integrasi alat analyzer, SatuSehat & BPJS, worklist, dan
-          label barcode — <strong>fitur & pembaruan gratis selamanya</strong>, tanpa biaya
-          development.
-        </div>
-
-        <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-3">
+        <div className="mt-14 grid grid-cols-1 gap-8 lg:grid-cols-3">
           {SCHEMES.map((s) => (
             <div
               key={s.name}
-              className={`relative flex flex-col rounded-2xl border bg-white p-8 ${
-                s.highlight ? 'border-brand-blue shadow-lg shadow-blue-100' : 'border-slate-200'
+              className={`relative flex flex-col rounded-3xl bg-white p-8 ring-1 ${
+                s.highlight
+                  ? 'shadow-xl shadow-blue-100 ring-brand-blue lg:-translate-y-3'
+                  : 'shadow-sm ring-slate-200'
               }`}
             >
-              <span
-                className={`absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-4 py-1 text-xs font-semibold whitespace-nowrap ${
-                  s.highlight ? 'bg-brand-blue text-white' : 'bg-slate-700 text-white'
-                }`}
-              >
-                {s.badge}
-              </span>
-              <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-brand-blue">
+              {s.highlight && (
+                <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-brand-blue px-4 py-1.5 text-xs font-semibold text-white shadow-sm">
+                  {s.badge}
+                </span>
+              )}
+              {!s.highlight && (
+                <span className="inline-block w-fit rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">
+                  {s.badge}
+                </span>
+              )}
+
+              <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-brand-blue">
                 {s.name}
               </p>
               <h3 className="mt-1 text-xl font-bold text-slate-900">{s.title}</h3>
-              <p className="mt-2 text-sm text-slate-600">{s.tagline}</p>
+              <p className="mt-2.5 text-sm leading-relaxed text-slate-600">{s.tagline}</p>
 
-              <div className="mt-6 flex-1 space-y-3 border-y border-slate-100 py-5">
+              <div className="mt-8 flex-1 space-y-5">
                 {s.rows.map((row) => (
-                  <div key={row.label} className="flex flex-col gap-0.5">
-                    <span className="text-xs text-slate-500">{row.label}</span>
-                    <span className="text-sm font-semibold text-slate-900">{row.value}</span>
+                  <div key={row.label} className="flex items-start gap-3">
+                    <div className="mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-full bg-blue-50 text-brand-blue">
+                      <row.icon size={17} />
+                    </div>
+                    <div>
+                      <p className="text-xs text-slate-500">{row.label}</p>
+                      <p className="text-sm font-semibold text-slate-900">{row.value}</p>
+                      {row.note && <p className="mt-0.5 text-xs text-slate-400">{row.note}</p>}
+                    </div>
                   </div>
                 ))}
               </div>
 
-              <p className="mt-4 flex items-start gap-2 text-sm text-slate-700">
-                <Check size={18} className="mt-0.5 shrink-0 text-brand-blue" />
-                <span>Cocok untuk: {s.fit}</span>
-              </p>
+              <div className="mt-8 flex items-start gap-2 rounded-xl bg-slate-50 px-4 py-3 text-sm text-slate-700">
+                <CheckCircle2 size={18} className="mt-0.5 shrink-0 text-brand-blue" />
+                <span>
+                  Cocok untuk <strong>{s.fit}</strong>
+                </span>
+              </div>
 
               <a
                 href={`https://wa.me/6282175757415?text=${encodeURIComponent(
@@ -337,7 +383,7 @@ function Pricing() {
                 )}`}
                 target="_blank"
                 rel="noreferrer"
-                className={`mt-6 block rounded-lg px-6 py-3 text-center font-semibold transition ${
+                className={`mt-6 block rounded-xl px-6 py-3 text-center font-semibold transition ${
                   s.highlight
                     ? 'bg-brand-blue text-white hover:bg-brand-blue-dark'
                     : 'border border-slate-300 text-slate-700 hover:bg-slate-50'
@@ -348,6 +394,48 @@ function Pricing() {
             </div>
           ))}
         </div>
+
+        <div className="mt-20">
+          <h3 className="text-center text-2xl font-bold text-slate-900">
+            Bandingkan tiga skema
+          </h3>
+          <div className="mt-8 overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
+            <table className="w-full min-w-[640px] text-left text-sm">
+              <thead>
+                <tr className="border-b border-slate-200 bg-slate-50">
+                  <th className="px-5 py-4 font-medium text-slate-500">Komponen</th>
+                  {SCHEMES.map((s) => (
+                    <th
+                      key={s.name}
+                      className={`px-5 py-4 font-semibold ${
+                        s.highlight ? 'text-brand-blue' : 'text-slate-900'
+                      }`}
+                    >
+                      {s.name}
+                      <span className="block text-xs font-normal text-slate-500">{s.title}</span>
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {COMPARE_ROWS.map((row) => (
+                  <tr key={row.label}>
+                    <td className="px-5 py-4 font-medium text-slate-700">{row.label}</td>
+                    {row.values.map((v, i) => (
+                      <td
+                        key={i}
+                        className={`px-5 py-4 ${i === 0 ? 'font-semibold text-slate-900' : 'text-slate-600'}`}
+                      >
+                        {v}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
         <p className="mt-8 text-center text-sm text-slate-500">
           Harga belum termasuk PPN, langganan tahunan dibayar di muka.{' '}
           <a href="#kontak" className="font-medium text-brand-blue hover:underline">
