@@ -231,55 +231,51 @@ function Features() {
   )
 }
 
-const PLANS = [
+const SCHEMES = [
   {
-    name: 'Starter',
-    tagline: 'Untuk klinik & lab mandiri satu lokasi',
-    highlight: false,
-    specs: [
-      { label: 'Cabang', value: '1 lokasi' },
-      { label: 'Alat analyzer terhubung', value: 'sampai 2 alat' },
-      { label: 'Pengguna', value: 'sampai 5 akun' },
-    ],
-    features: [
-      'Worklist & pendaftaran sampel',
-      'Validasi hasil & nilai kritis',
-      'Cetak label barcode',
-      'Riwayat pasien & rujukan',
-    ],
-  },
-  {
-    name: 'Professional',
-    tagline: 'Untuk lab menengah & RS dengan banyak alat',
+    name: 'Skema A',
+    title: 'Server Cloud Terkelola',
+    badge: 'Paling Praktis',
     highlight: true,
-    specs: [
-      { label: 'Cabang', value: '1 lokasi' },
-      { label: 'Alat analyzer terhubung', value: 'sampai 5 alat' },
-      { label: 'Pengguna', value: 'sampai 15 akun' },
+    tagline:
+      'Server dikelola penuh oleh kami — hosting, keamanan, pencadangan, dan pembaruan. Lab cukup terhubung internet.',
+    rows: [
+      { label: 'Bayar pertama (aktivasi)', value: 'Rp 15 jt' },
+      { label: '— rincian', value: 'Implementasi 6 jt + lisensi th-1 9 jt' },
+      { label: 'Tahun berikutnya', value: 'Rp 11,4 – 15 jt/thn' },
+      { label: 'Infrastruktur', value: 'Rp 200rb – 500rb/bln (sesuai volume)' },
     ],
-    features: [
-      'Semua di paket Starter',
-      'Integrasi ASTM & HL7 (bidirectional)',
-      'SatuSehat & klaim BPJS',
-      'Multi-shift & multi-role',
-      'Laporan & analitik lanjutan',
-    ],
+    fit: 'Lab yang sudah mapan',
   },
   {
-    name: 'Enterprise',
-    tagline: 'Untuk RS besar & jaringan multi-cabang',
+    name: 'Skema B',
+    title: 'Server Fisik (On-Premise)',
+    badge: 'Server Milik Sendiri',
     highlight: false,
-    specs: [
-      { label: 'Cabang', value: 'multi-cabang' },
-      { label: 'Alat analyzer terhubung', value: 'tanpa batas' },
-      { label: 'Pengguna', value: 'tanpa batas' },
+    tagline:
+      'Server ditempatkan di lokasi lab. Cocok kalau data harus disimpan di pihak sendiri.',
+    rows: [
+      { label: 'Bayar pertama (aktivasi)', value: 'Rp 15 jt + server' },
+      { label: '— rincian', value: 'Jasa 15 jt (impl+lisensi) + server Rp 20–55 jt (beli sendiri)' },
+      { label: 'Tahun berikutnya', value: 'Rp 12 jt/thn' },
+      { label: 'Infrastruktur', value: 'Server fisik milik lab, sesuai volume' },
     ],
-    features: [
-      'Semua di paket Professional',
-      'Konsolidasi data multi-cabang',
-      'Akses API & integrasi custom',
-      'Dukungan prioritas & SLA',
+    fit: 'Lab yang mau kendali penuh atas server',
+  },
+  {
+    name: 'Skema C',
+    title: 'Gratis di Awal, Fee per Pemeriksaan',
+    badge: 'Tanpa Biaya di Muka',
+    highlight: false,
+    tagline:
+      'Lisensi, infrastruktur, dan implementasi ditanggung penuh oleh kami. Kami hanya menarik fee dari tiap pemeriksaan.',
+    rows: [
+      { label: 'Bayar pertama (aktivasi)', value: 'Rp 0' },
+      { label: 'Berjalan', value: 'Rp 3.000/pemeriksaan' },
+      { label: 'Minimum per bulan', value: 'Rp 500rb (≈167 pemeriksaan)' },
+      { label: 'Masa komitmen', value: '12 bulan' },
     ],
+    fit: 'Lab baru / tanpa modal',
   },
 ]
 
@@ -290,53 +286,59 @@ function Pricing() {
         <div className="text-center">
           <h2 className="text-3xl font-bold text-slate-900">Harga</h2>
           <p className="mx-auto mt-3 max-w-xl text-slate-600">
-            Paket disesuaikan jumlah alat, cabang, dan pengguna. Belum termasuk PPN.
+            Tiga skema investasi, pilih yang paling cocok dengan lab Anda. Belum termasuk PPN.
           </p>
         </div>
-        <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-3">
-          {PLANS.map((plan) => (
+
+        <div className="mx-auto mt-8 max-w-3xl rounded-xl border border-emerald-100 bg-emerald-50 px-5 py-4 text-center text-sm text-emerald-800">
+          Semua skema sudah termasuk integrasi alat analyzer, SatuSehat & BPJS, worklist, dan
+          label barcode — <strong>fitur & pembaruan gratis selamanya</strong>, tanpa biaya
+          development.
+        </div>
+
+        <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-3">
+          {SCHEMES.map((s) => (
             <div
-              key={plan.name}
+              key={s.name}
               className={`relative flex flex-col rounded-2xl border bg-white p-8 ${
-                plan.highlight
-                  ? 'border-brand-blue shadow-lg shadow-blue-100'
-                  : 'border-slate-200'
+                s.highlight ? 'border-brand-blue shadow-lg shadow-blue-100' : 'border-slate-200'
               }`}
             >
-              {plan.highlight && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-brand-blue px-4 py-1 text-xs font-semibold text-white">
-                  Paling Populer
-                </span>
-              )}
-              <h3 className="text-xl font-bold text-slate-900">{plan.name}</h3>
-              <p className="mt-1 text-sm text-slate-600">{plan.tagline}</p>
+              <span
+                className={`absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-4 py-1 text-xs font-semibold whitespace-nowrap ${
+                  s.highlight ? 'bg-brand-blue text-white' : 'bg-slate-700 text-white'
+                }`}
+              >
+                {s.badge}
+              </span>
+              <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-brand-blue">
+                {s.name}
+              </p>
+              <h3 className="mt-1 text-xl font-bold text-slate-900">{s.title}</h3>
+              <p className="mt-2 text-sm text-slate-600">{s.tagline}</p>
 
-              <div className="mt-6 space-y-2 border-y border-slate-100 py-5">
-                {plan.specs.map((spec) => (
-                  <div key={spec.label} className="flex justify-between text-sm">
-                    <span className="text-slate-500">{spec.label}</span>
-                    <span className="font-medium text-slate-900">{spec.value}</span>
+              <div className="mt-6 flex-1 space-y-3 border-y border-slate-100 py-5">
+                {s.rows.map((row) => (
+                  <div key={row.label} className="flex flex-col gap-0.5">
+                    <span className="text-xs text-slate-500">{row.label}</span>
+                    <span className="text-sm font-semibold text-slate-900">{row.value}</span>
                   </div>
                 ))}
               </div>
 
-              <ul className="mt-5 flex-1 space-y-3">
-                {plan.features.map((feature) => (
-                  <li key={feature} className="flex items-start gap-2 text-sm text-slate-700">
-                    <Check size={18} className="mt-0.5 shrink-0 text-brand-blue" />
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
+              <p className="mt-4 flex items-start gap-2 text-sm text-slate-700">
+                <Check size={18} className="mt-0.5 shrink-0 text-brand-blue" />
+                <span>Cocok untuk: {s.fit}</span>
+              </p>
 
               <a
                 href={`https://wa.me/6282175757415?text=${encodeURIComponent(
-                  `Halo, saya mau tanya paket ${plan.name} QliniLab`,
+                  `Halo, saya mau tanya ${s.name} (${s.title}) QliniLab`,
                 )}`}
                 target="_blank"
                 rel="noreferrer"
-                className={`mt-8 block rounded-lg px-6 py-3 text-center font-semibold transition ${
-                  plan.highlight
+                className={`mt-6 block rounded-lg px-6 py-3 text-center font-semibold transition ${
+                  s.highlight
                     ? 'bg-brand-blue text-white hover:bg-brand-blue-dark'
                     : 'border border-slate-300 text-slate-700 hover:bg-slate-50'
                 }`}
@@ -347,11 +349,11 @@ function Pricing() {
           ))}
         </div>
         <p className="mt-8 text-center text-sm text-slate-500">
-          Butuh skema khusus di luar paket di atas?{' '}
+          Harga belum termasuk PPN, langganan tahunan dibayar di muka.{' '}
           <a href="#kontak" className="font-medium text-brand-blue hover:underline">
             Hubungi tim kami
-          </a>
-          .
+          </a>{' '}
+          buat konsultasi skema yang paling cocok.
         </p>
       </div>
     </section>
