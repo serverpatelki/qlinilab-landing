@@ -1,5 +1,6 @@
 import {
   Activity,
+  AlertTriangle,
   Barcode,
   Check,
   FileCheck2,
@@ -10,6 +11,85 @@ import {
 } from 'lucide-react'
 import { useState } from 'react'
 import logo from './logo.png'
+
+const WORKLIST_ROWS = [
+  { noLab: '2026090142', pasien: 'Budi Santoso', sampel: 'Darah', status: 'Selesai' as const },
+  { noLab: '2026090143', pasien: 'Ani Lestari', sampel: 'Urin', status: 'Diproses' as const },
+  { noLab: '2026090144', pasien: 'Rudi Hartono', sampel: 'Darah', status: 'Selesai' as const },
+  { noLab: '2026090145', pasien: 'Dewi Anggraini', sampel: 'Darah', status: 'Kritis' as const },
+  { noLab: '2026090146', pasien: 'Joko Prasetyo', sampel: 'Serum', status: 'Diproses' as const },
+]
+
+const STATUS_STYLE = {
+  Selesai: 'bg-emerald-50 text-emerald-700',
+  Diproses: 'bg-blue-50 text-blue-700',
+  Kritis: 'bg-red-50 text-red-700',
+}
+
+function DashboardMockup() {
+  return (
+    <div className="mx-auto mt-14 max-w-4xl overflow-hidden rounded-2xl border border-slate-200 bg-white text-left shadow-2xl shadow-slate-300/40">
+      <div className="flex items-center gap-2 border-b border-slate-100 bg-slate-50 px-4 py-3">
+        <span className="size-2.5 rounded-full bg-red-400" />
+        <span className="size-2.5 rounded-full bg-amber-400" />
+        <span className="size-2.5 rounded-full bg-emerald-400" />
+        <span className="ml-3 rounded-md bg-white px-3 py-1 text-xs text-slate-400 border border-slate-200">
+          dashboard.qlinilab.id/worklist
+        </span>
+      </div>
+      <div className="p-6">
+        <div className="grid grid-cols-3 gap-4">
+          <div className="rounded-xl border border-slate-100 bg-slate-50 p-4">
+            <p className="text-xs text-slate-500">Sampel Hari Ini</p>
+            <p className="mt-1 text-2xl font-bold text-slate-900">128</p>
+          </div>
+          <div className="rounded-xl border border-slate-100 bg-slate-50 p-4">
+            <p className="text-xs text-slate-500">Menunggu Validasi</p>
+            <p className="mt-1 text-2xl font-bold text-slate-900">14</p>
+          </div>
+          <div className="rounded-xl border border-red-100 bg-red-50 p-4">
+            <p className="flex items-center gap-1 text-xs text-red-600">
+              <AlertTriangle size={12} /> Nilai Kritis
+            </p>
+            <p className="mt-1 text-2xl font-bold text-red-700">2</p>
+          </div>
+        </div>
+
+        <div className="mt-6 overflow-hidden rounded-xl border border-slate-100">
+          <table className="w-full text-left text-sm">
+            <thead className="bg-slate-50 text-xs uppercase tracking-wide text-slate-500">
+              <tr>
+                <th className="px-4 py-2 font-medium">No. Lab</th>
+                <th className="px-4 py-2 font-medium">Pasien</th>
+                <th className="px-4 py-2 font-medium">Sampel</th>
+                <th className="px-4 py-2 font-medium">Status</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100">
+              {WORKLIST_ROWS.map((row) => (
+                <tr key={row.noLab}>
+                  <td className="px-4 py-2.5 font-mono text-xs text-slate-500">{row.noLab}</td>
+                  <td className="px-4 py-2.5 text-slate-800">{row.pasien}</td>
+                  <td className="px-4 py-2.5 text-slate-600">{row.sampel}</td>
+                  <td className="px-4 py-2.5">
+                    <span
+                      className={`rounded-full px-2.5 py-1 text-xs font-medium ${STATUS_STYLE[row.status]}`}
+                    >
+                      {row.status}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="mt-3 text-center text-xs text-slate-400">
+          Ilustrasi tampilan — data contoh, bukan data pasien sungguhan.
+        </p>
+      </div>
+    </div>
+  )
+}
 
 const FEATURES = [
   {
@@ -116,6 +196,8 @@ function Hero() {
             Lihat Fitur
           </a>
         </div>
+
+        <DashboardMockup />
       </div>
     </section>
   )
