@@ -1,0 +1,24 @@
+services:
+  qlinilab-landing:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=dokploy-network
+      - traefik.http.routers.qlinilab-landing-web.rule=Host(`qlinilab.id`)
+      - traefik.http.routers.qlinilab-landing-web.entrypoints=web
+      - traefik.http.routers.qlinilab-landing-web.middlewares=redirect-to-https@file
+      - traefik.http.routers.qlinilab-landing-web.service=qlinilab-landing-web
+      - traefik.http.services.qlinilab-landing-web.loadbalancer.server.port=80
+      - traefik.http.routers.qlinilab-landing-websecure.rule=Host(`qlinilab.id`)
+      - traefik.http.routers.qlinilab-landing-websecure.entrypoints=websecure
+      - traefik.http.routers.qlinilab-landing-websecure.tls.certresolver=letsencrypt
+      - traefik.http.routers.qlinilab-landing-websecure.service=qlinilab-landing-websecure
+      - traefik.http.services.qlinilab-landing-websecure.loadbalancer.server.port=80
+    networks:
+      - dokploy-network
+networks:
+  dokploy-network:
+    external: true
