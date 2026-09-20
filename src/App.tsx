@@ -14,6 +14,7 @@ import { Security } from './sections/Security'
 import { Industries } from './sections/Industries'
 import { Pricing } from './sections/Pricing'
 import { Implementation } from './sections/Implementation'
+import { About } from './sections/About'
 import { FAQ } from './sections/FAQ'
 import { FinalCTA } from './sections/FinalCTA'
 import { Footer } from './sections/Footer'
@@ -37,6 +38,7 @@ export default function App() {
       <Benefits />
       <Pricing />
       <Implementation />
+      <About />
       <FAQ />
       <FinalCTA />
       <Footer />

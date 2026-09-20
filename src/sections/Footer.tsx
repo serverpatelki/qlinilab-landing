@@ -21,8 +21,17 @@ const COLUMNS = [
   {
     title: 'Perusahaan',
     links: [
+      { label: 'Tentang Kami', href: '#tentang-kami' },
       { label: 'Kontak', href: '#kontak' },
       { label: 'Login', href: 'https://dashboard.qlinilab.id' },
+    ],
+  },
+  {
+    title: 'Kontak',
+    links: [
+      { label: '0821-7575-7415', href: 'https://wa.me/6282175757415' },
+      { label: 'fhajarm@gmail.com', href: 'mailto:fhajarm@gmail.com' },
+      { label: 'linkedin.com/in/fhajar97', href: 'https://linkedin.com/in/fhajar97' },
     ],
   },
 ]
@@ -31,8 +40,8 @@ export function Footer() {
   return (
     <footer className="border-t border-slate-100 bg-white py-16">
       <div className="mx-auto max-w-6xl px-6">
-        <div className="grid grid-cols-2 gap-10 sm:grid-cols-4">
-          <div className="col-span-2 sm:col-span-1">
+        <div className="grid grid-cols-2 gap-10 sm:grid-cols-3 lg:grid-cols-5">
+          <div className="col-span-2 sm:col-span-3 lg:col-span-1">
             <img src={logo} alt="QliniLab" className="h-8 w-auto" />
             <p className="mt-4 max-w-[220px] text-sm text-slate-500">
               Satu sistem terhubung untuk alur kerja laboratorium Anda.
