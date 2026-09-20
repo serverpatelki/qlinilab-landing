@@ -1,22 +1,18 @@
-import { Building2, ExternalLink, Mail, Phone } from 'lucide-react'
+import { CheckCircle2, Mail, Phone } from 'lucide-react'
 import { SectionHeading } from '../lib/ui'
 
-const TRACK_RECORD = [
+const COMMITMENTS = [
   {
-    name: 'SMART PATELKI',
-    desc: 'Sistem keanggotaan nasional untuk organisasi profesi laboratorium medik.',
+    title: 'Sesuai regulasi',
+    desc: 'Dibangun mengikuti Permenkes 82/2013, KMK 1423/2022, dan PMK 24/2022 (RME).',
   },
   {
-    name: 'Lab DMS',
-    desc: 'Document management system laboratorium terakreditasi ISO 15189.',
+    title: 'Teruji di lingkungan produksi',
+    desc: 'Berjalan langsung dengan integrasi SatuSehat dan BPJS, bukan sekadar demo.',
   },
   {
-    name: 'Oculab.ai',
-    desc: 'AI pemeriksaan mikroskopis untuk deteksi tuberkulosis.',
-  },
-  {
-    name: 'Kanca',
-    desc: 'Partner resmi WhatsApp Business API — omnichannel, CRM, dan commerce.',
+    title: 'Harga transparan',
+    desc: 'Tiga skema jelas di muka — tanpa negosiasi tertutup atau biaya tersembunyi.',
   },
 ]
 
@@ -28,7 +24,7 @@ export function About() {
           <SectionHeading
             align="left"
             title="Dibangun oleh tim yang paham operasional kesehatan."
-            desc="QliniLab dikembangkan oleh FM Solution, studio pengembangan sistem informasi & AI yang sudah membangun platform untuk organisasi profesi kesehatan nasional, laboratorium terakreditasi, dan teknologi AI medis — bukan produk baru yang belum teruji konteksnya."
+            desc="QliniLab dikembangkan langsung mengikuti alur kerja laboratorium sungguhan dan standar regulasi Kemenkes — bukan produk yang dipaksakan cocok untuk konteks kesehatan setelahnya."
           />
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
@@ -48,28 +44,19 @@ export function About() {
               <Mail size={15} className="text-brand-blue" />
               fhajarm@gmail.com
             </a>
-            <a
-              href="https://linkedin.com/in/fhajar97"
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-2 rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-medium text-slate-700 transition hover:border-slate-300 hover:bg-slate-50"
-            >
-              <ExternalLink size={15} className="text-brand-blue" />
-              linkedin.com/in/fhajar97
-            </a>
           </div>
         </div>
 
         <div data-reveal className="reveal rounded-2xl border border-slate-200 p-8">
-          <div className="flex items-center gap-2 text-sm font-semibold text-slate-500">
-            <Building2 size={16} className="text-brand-blue" />
-            Portofolio FM Solution
-          </div>
-          <div className="mt-5 divide-y divide-slate-100">
-            {TRACK_RECORD.map((t) => (
-              <div key={t.name} className="py-3.5 first:pt-0 last:pb-0">
-                <p className="font-semibold text-slate-900">{t.name}</p>
-                <p className="mt-0.5 text-sm text-slate-600">{t.desc}</p>
+          <p className="text-sm font-semibold text-slate-500">Komitmen Kami</p>
+          <div className="mt-5 space-y-5">
+            {COMMITMENTS.map((c) => (
+              <div key={c.title} className="flex items-start gap-3">
+                <CheckCircle2 size={18} className="mt-0.5 shrink-0 text-brand-blue" />
+                <div>
+                  <p className="font-semibold text-slate-900">{c.title}</p>
+                  <p className="mt-0.5 text-sm text-slate-600">{c.desc}</p>
+                </div>
               </div>
             ))}
           </div>
