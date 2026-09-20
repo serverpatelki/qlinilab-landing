@@ -98,7 +98,7 @@ export function Hero() {
   return (
     <section className="bg-white pt-14 pb-16 sm:pt-20">
       <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-14 px-6 lg:grid-cols-[1.05fr_1fr] lg:gap-10">
-        <div data-reveal className="reveal">
+        <div>
           <p className="text-sm font-semibold text-brand-blue">Laboratory Information System</p>
           <h1 className="mt-4 text-[2.6rem] font-extrabold leading-[1.08] tracking-tight text-slate-900 sm:text-5xl lg:text-[3.4rem]">
             Laboratorium Anda.
@@ -127,7 +127,7 @@ export function Hero() {
           <p className="mt-6 text-sm text-slate-400">Dibangun untuk operasional laboratorium modern.</p>
         </div>
 
-        <div data-reveal className="reveal">
+        <div>
           <DashboardMockup />
         </div>
       </div>
